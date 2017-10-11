@@ -1,1 +1,3 @@
-# myLeetCode
+'''
+my solutions
+'''
