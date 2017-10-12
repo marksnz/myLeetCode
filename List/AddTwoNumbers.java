@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 /**
  * You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
  * You may assume the two numbers do not contain any leading zero, except the number 0 itself.
@@ -13,22 +15,25 @@ public class AddTwoNumbers {
         if (null == l1 || null == l2)
             return null;
         
-        int _val = getVal(l1) + getVal(l2);
-        ListNode out = new ListNode(_val % 10);
-        _val /= 10;
+        BigInteger _val = getVal(l1).add(getVal(l2));
+        BigInteger[] ret = _val.divideAndRemainder(new BigInteger("10"));
+        
+        ListNode out = new ListNode(ret[1].intValue());
+        _val = ret[0];
         ListNode curr = out;
         ListNode newNode = null;
-        while (_val != 0)
+        while (!_val.equals(new BigInteger("0")))
         {
-            newNode = new ListNode(_val % 10);
+            BigInteger[] ret2 = _val.divideAndRemainder(new BigInteger("10"));
+            newNode = new ListNode(ret2[1].intValue());
             curr.next = newNode;
             curr = newNode;
-            _val /= 10;
+            _val = ret2[0];
         }
         return out;
     }
     
-    private int getVal(ListNode ln)
+    private BigInteger getVal(ListNode ln)
     {
         StringBuilder sval = new StringBuilder(Integer.toString(ln.val));
         while(ln.next != null)
@@ -36,7 +41,7 @@ public class AddTwoNumbers {
             ln = ln.next;
             sval.append(Integer.toString(ln.val));
         }
-        return Integer.parseInt(sval.reverse().toString());
+        return new BigInteger(sval.reverse().toString());
     }
     
     private void printList(ListNode ln)
@@ -52,7 +57,6 @@ public class AddTwoNumbers {
     
     public static void main(String[] args) 
     {
-        // TODO Auto-generated method stub
         AddTwoNumbers atn = new AddTwoNumbers();
         AddTwoNumbers.ListNode l1 = atn.new ListNode(2);
         l1.next = atn.new ListNode(4); 
