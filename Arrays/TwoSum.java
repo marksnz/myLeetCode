@@ -20,32 +20,32 @@ public class TwoSum {
         HashMap<Integer, List<Integer>> hmap = new HashMap<>();
         for (int i = 0; i < nums.length; i++)
         {
-        	if (hmap.containsKey(nums[i])) 
-        	{
-        		hmap.get(nums[i]).add(i);				
-			}
-        	else 
-        	{
-        		List<Integer> ls = new ArrayList<>();
-        		ls.add(i);
-        		hmap.put(nums[i], ls);
-			}
+            if (hmap.containsKey(nums[i])) 
+            {
+                hmap.get(nums[i]).add(i);                
+            }
+            else 
+            {
+                List<Integer> ls = new ArrayList<>();
+                ls.add(i);
+                hmap.put(nums[i], ls);
+            }
         }
         for (int i : nums)
         {
             if (hmap.containsKey(target - i))
             {
-            	if (i*2 == target) 
-            	{
-					if (hmap.get(i).size() > 1) 
-					{
-						return new int[]{hmap.get(i).get(0), hmap.get(i).get(1)};
-					}
-				}
-            	else 
-            	{
-            		return new int[]{hmap.get(i).get(0), hmap.get(target - i).get(0)};
-				}
+                if (i*2 == target) 
+                {
+                    if (hmap.get(i).size() > 1) 
+                    {
+                        return new int[]{hmap.get(i).get(0), hmap.get(i).get(1)};
+                    }
+                }
+                else 
+                {
+                    return new int[]{hmap.get(i).get(0), hmap.get(target - i).get(0)};
+                }
             }
         }
         return null;
